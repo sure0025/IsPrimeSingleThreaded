@@ -7,7 +7,7 @@ namespace IsPrimeSingleThreaded
     class Program
     {
         private Stopwatch stopwatch = new Stopwatch();
-        private BigInteger threshold = BigInteger.Parse("0");
+        private long threshold = 0;
         bool goOn = true;
 
         static void Main(string[] args) {
@@ -17,7 +17,7 @@ namespace IsPrimeSingleThreaded
 
         public void Run() {
             do {
-                BigInteger input = GetUserValue();
+                long input = GetUserValue();
 
                 if (input != 0) {
                     stopwatch.Start();
@@ -34,10 +34,10 @@ namespace IsPrimeSingleThreaded
             } while (goOn);
         }
 
-        private BigInteger GetUserValue() {
+        private long GetUserValue() {
             Console.Write($"We will calculate the value of ({threshold} + x), where x is your input (enter 0 to exit): ");
             String s = Console.ReadLine();
-            return BigInteger.Parse(s);
+            return long.Parse(s);
         }
     }
 }
