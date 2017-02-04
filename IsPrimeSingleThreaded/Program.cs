@@ -1,0 +1,43 @@
+﻿using System;
+using System.Diagnostics;
+using System.Numerics; //reference added to System.Numerics.dll
+
+namespace IsPrimeSingleThreaded
+{
+    class Program
+    {
+        private Stopwatch stopwatch = new Stopwatch();
+        private BigInteger threshold = BigInteger.Parse("0");
+        bool goOn = true;
+
+        static void Main(string[] args) {
+            Program program = new IsPrimeSingleThreaded.Program();
+            program.Run();
+        }
+
+        public void Run() {
+            do {
+                BigInteger input = GetUserValue();
+
+                if (input != 0) {
+                    stopwatch.Start();
+                    BigInteger value = threshold + input;
+                    
+                    Console.WriteLine($"{value} is a prime number: " + Utils.isPrime(value).ToString().ToUpper());
+                    stopwatch.Stop();
+                    Console.WriteLine("Time (ms) : " + stopwatch.Elapsed);
+                    stopwatch.Reset();
+                }
+                else {
+                    goOn = false;
+                }
+            } while (goOn);
+        }
+
+        private BigInteger GetUserValue() {
+            Console.Write($"We will calculate the value of ({threshold} + x), where x is your input (enter 0 to exit): ");
+            String s = Console.ReadLine();
+            return BigInteger.Parse(s);
+        }
+    }
+}
