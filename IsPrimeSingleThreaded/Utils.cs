@@ -16,7 +16,7 @@ namespace IsPrimeSingleThreaded
                 Thread.Sleep(5);
                 if (number % i == 0) return false;
             }
-            return true;
+            return true; 
         }
         #endregion
 
