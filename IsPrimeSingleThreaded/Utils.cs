@@ -22,12 +22,12 @@ namespace IsPrimeSingleThreaded
             }
             else {
                 long ceiling = (long)Math.Sqrt(number);
-                long i = 3; //we have tested for <= 1 and 2
+                long i = 3;
                 while ((i <= ceiling) && (number % i != 0)) {
                     Thread.Sleep(delayTime);//simulate hard calculation
                     i = i + 2; // only check uneven factors, we have testet even 
                 }
-                if (number % i == 0) {
+                if ((number % i == 0) && (number != i)) {
                     result = i; // i is a factor
                 } else {
                     result = 0; // number is prime

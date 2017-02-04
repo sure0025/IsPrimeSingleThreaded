@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Numerics; //reference added to System.Numerics.dll
 
 namespace IsPrimeSingleThreaded
 {
     class Program
     {
         private Stopwatch stopwatch = new Stopwatch();
-        private long threshold = 0;
         bool goOn = true;
 
         static void Main(string[] args) {
@@ -18,26 +16,35 @@ namespace IsPrimeSingleThreaded
         public void Run() {
             do {
                 long input = GetUserValue();
-
-                if (input != 0) {
-                    stopwatch.Start();
-                    BigInteger value = threshold + input;
-                    
-                    Console.WriteLine($"{value} is a prime number: " + Utils.isPrime(value).ToString().ToUpper());
-                    stopwatch.Stop();
-                    Console.WriteLine("Time (ms) : " + stopwatch.Elapsed);
-                    stopwatch.Reset();
+                string output;
+                if (input == 0) {
+                    goOn = false;
                 }
                 else {
-                    goOn = false;
+                    try {
+                        stopwatch.Start();
+                        long result = Utils.isPrime(input);
+                        if (result == 0) {
+                            output = "is prime!";
+                        }
+                        else {
+                            output = "is NOT prime, contains factor " + result;
+                        }
+                        Console.WriteLine($"{input} " + output);
+                        stopwatch.Stop();
+                        Console.WriteLine("Time (ms) : " + stopwatch.Elapsed);
+                        stopwatch.Reset();
+                    }
+                    catch (ArgumentOutOfRangeException e) {
+                        Console.WriteLine("Nonvalid parameter! " + e.ToString());
+                    }
                 }
             } while (goOn);
         }
 
         private long GetUserValue() {
-            Console.Write($"We will calculate the value of ({threshold} + x), where x is your input (enter 0 to exit): ");
-            String s = Console.ReadLine();
-            return long.Parse(s);
+            Console.Write("Enter a positive integer value to test whether it is prime (enter 0 to exit) : ");
+            return long.Parse(Console.ReadLine());
         }
     }
 }
