@@ -20,8 +20,12 @@ namespace IsPrimeSingleThreaded
                 }
                 else {
                     PrimeChecker pc = new PrimeChecker(input);
+                    //pc.Check();
+                    /*Usign thread*/
                     Thread thread1 = new Thread(pc.Check);
                     thread1.Start();
+
+
                 }
             } while (goOn);
         }
